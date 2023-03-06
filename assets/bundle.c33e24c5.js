@@ -159,7 +159,7 @@
 			"www.facebook.com": ["facebook", "fb", "f"],
 			"twitter.com": ["twitter", "tw", "t"]
 		},
-		_ = "https://duckduckgo.com/?q=";
+		_ = "https://duckduckgo.com/?q=s%";
 	let q;
 
 	function E(a) {
