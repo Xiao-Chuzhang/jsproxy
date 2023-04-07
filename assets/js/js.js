@@ -1,414 +1,330 @@
-*{ margin: 0; padding: 0; font-family: "微软雅黑"}
-body, ul, li, h1, h2, h3, h4, h5, h6, p, form, dl, dt, dd { margin: 0px; padding: 0px; font-size: 14px; font-weight: normal;}
-img { border-style: none;}
-li{ list-style: none; float: left}
-a{ text-decoration: none}
-<!-- 注意！下方引用的是存储在网络，而非项目文件夹内的背景图片文件 -->
-body {	
-	background-image: url(PHOTOURL);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-}
+$(function () {
+	// $('body').height($('body')[0].clientHeight);
+	initpage();
+	$(window).resize(function () {
+		initpage();
+	})
 
-/*百度搜索*/
-.baidu{
-	float: left;
-	margin: 8px 0;
-	margin-left: 100px;
+	function initpage() {
+		var view_width = document.getElementsByTagName('html')[0].getBoundingClientRect().width;
+		var _html = document.getElementsByTagName('html')[0];
+		view_width > 640 ? _html.style.fontSize = 640 / 16 + 'px' : _html.style.fontSize = view_width / 16 + 'px';
 	}
-.baidu form{
-	position: relative
-}
-#Select{
-	float: left;
-	border: 1px solid #ccc	
-	}
+});
 
-.Select-box{
-	text-align: center;
-	float: left;
-	position: relative;
-	}
-.Select-box ul{
-	height: 40px;
-	position: absolute;
-	left: -1px;
-	top: 0px;
-	z-index: 9999;
-	background: #FFF;
-	border: 1px solid #ccc;
-	border-top: none;
-	overflow: hidden
-	}
-.Select-box li{
-	width: 60px;
-	line-height: 40px;
-	font-size: 14px;
-	color: #484848;
-	border: 0;
-	cursor: pointer;
-	}
-.Select-box li:hover{
-	background: #3385ff;
-	color: #FFF;
-	}
-.Select-box .this_s{
-	color: #317ef3;
-	}
-.Select-box .this_s:hover{
-	background: #FFF;
-	color: #317ef3;
-	}
-	
-.qingkong{
-	position: absolute;
-	right: 95px;
-	top: 12px;
-	width: 18px;
-	height: 18px;
-	background: rgba(0,0,0,0.1);
-	border-radius: 18px;
-	line-height: 16px;
-	color: #666666;
-	cursor: pointer;
-	text-align: center;
-	font-size: 14px;
-	display: none;
-}
-.qingkong:hover{
-	background: rgba(0,0,0,0.2);
-}
-.qingkong:active{
-	background: rgba(0,0,0,0.3);
-}
-.content{
-	width: 1100px;	
-    position: absolute; 
-    left: 50%;
-    transform: translateX(-50%);
-    top:25%;
-}
-.qingkong{
-	right: 115px;
-	top: 15px;
-}
-/*内容区域*/
-.body{
-	width: 100%;
-	height: auto;
-	z-index: 1;
-}
-.bg-2{
-	padding-top: 60px;
-}
-.content{
-	width: 1100px;
-	overflow: hidden;
-	margin: 30px auto;
-}
-	
-	
-.nav-list{
-	width: 1100px;
+var sllTop;
+var divsTop = 330;/*document.getElementsByClassName('content')[0].offsetTop; 获取当前对象到其上级层顶部的距离*/
+window.onscroll = function () {
+	var onBtn = document.getElementById('top-box');
+	sllTop = document.documentElement.scrollTop || document.body.scrollTop;//如果浏览器不支持第一个事件则选择第二
+
+	if (sllTop >= 40) {
+		$('.header-con').css('padding', '0');
+		$('.logo img').css({ 'width': '50', 'margin-top': '5px', 'margin-left': '10px' });
+	} else {
+		$('.header-con').css('padding', '10px 0');
+		$('.logo img').css({ 'width': '60', 'margin-top': '0px', 'margin-left': '0px' });
 	}
 
-/*优秀网站推荐*/
-
-/*小分栏*/
-.mix-content{
-	width: 1120px;
-	margin: 0 auto;
-	overflow: hidden;
-}
-
-.left-tips{
-	font-size: 12px;
-	color: #959595;
-	float: left;
-}
-.right-tips{
-	font-size: 12px;
-	color: #959595;
-	float: right;
-}
-
-.tit-style2{
-	margin-top: 35px;
-	padding: 0 50px;
-	padding-top: 30px;
-	line-height: 40px;
-	border-top: 2px solid #FFF;
-	border-bottom: 2px solid #FFF;
-	display: inline-block;
-
-}
-
-.min-tit{
-	font-size: 15px;
-	color: #959595;
-}
-
-/*-----------------------------简洁版样式定义- 开始---------------------------------------------------*/
-
-.baidu-2{
-	width: 100%;
-	height: 110px;
-	margin: 0 auto;
-	background: none;
-	padding-top: 90px;
-	z-index: 1;
+	if (sllTop > 240) {
+		$('#tbox2').css('display', 'block')
+	} else {
+		$('#tbox2').css('display', 'none');
 	}
-.baidu-2 form{
-	width: 520px;
-	margin: 0 auto;
-}
-.baidu-2 input{
-	padding: 13px 8px;
-	opacity: 0.9;
-	font-size: 15px;
+	if (sllTop >= divsTop) {
+		$('.left-list').css('position', 'fixed');
+	} else {
+		$('.left-list').css('position', '');
 	}
-#Select-2{
-	float: left;
+	tlistTop();
+
+};
+
+$(function () {
+	$(".taoba").click(function (event) {
+		var i = $(this).index();
+		var id = $('.dingwei')[i];
+		$("html,body").animate({ scrollTop: $(id).offset().top - 80 }, 800);
+	});
+
+
+	$(".list-text").click(function (event) {
+		var i2 = $(this).index();
+		var id2 = $('.sethome-con')[i2];
+		$("html,body").animate({ scrollTop: $(id2).offset().top - 80 }, 800);
+	});
+});
+
+function tlistTop() {
+	var sethome_conHeight;
+	var tihsHeight;
+	var list_text = document.getElementsByClassName('fa-caret-right');
+	if (list_text.length === 0) {
+		return false;  //如果匹配到0个元素，则将函数返回，不继续执行
+	}
+	arr1 = []; //存储元素的top距离页面顶部的高度
+	for (var i = 0; i <= 4; i++) {
+		thisHeight = document.getElementsByClassName('sethome-con')[i].offsetTop + divsTop - 80;
+		arr1.push(thisHeight); //将循环获取到的值添加到数组里面
 	}
 
-.Select-box-2{
-	text-align: center;
-	float: left;
-	position: relative;
-	}
-.Select-box-2 ul{
-	height: 48px;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	z-index: 9999;
-	background: rgba(255,255,255,0.9);
-	border: none;
-	overflow: hidden
-	}
-.Select-box-2 li{
-	width: 60px;
-	line-height: 46px;
-	font-size: 15px;
-	color: #484848;
-	border: 0;
-	cursor: pointer;
-	width: 80px;
-	}
-.Select-box-2 li:hover{
-	background: #3385ff;
-	color: #FFF;
-	}
-.Select-box-2 .this_s{
-	color: #317ef3;
-	width: 80px;
-	}
-.Select-box-2 .this_s:hover{
-	background: none;
-	color: #317ef3;
-	}
-
-	#kw-2 {
-    width: 413px;
-    outline: 0;
-    border: 1px solid #ccc;
-    background: rgba(255,255,255,0.2);
-    color: #000000;
-    padding-left: 8px;
-    font-weight: bold;
-    height: 48px;
-    box-sizing: border-box;
-}
-#su-2{
-	width: 90px;
-	background: blue;
-	
-	border-top: #3385ff 1px solid;
-	border-bottom: 1px solid #2d78f4;
-	color: #FFF;
-	cursor: pointer;
-	/*去轮廓阴影*/
-	outline: none;
-	height: 48px;
-	border: none;
-	}	
-#su-2:hover{
-	background: blue;
-	border-bottom: 1px solid blue;
-	}
-#su-2:active{
-	background: blue;
-	box-shadow: inset 1px 1px 3px blue;
-	-webkit-box-shadow: inset 1px 1px 3px blue;
-	}
-
-
-.jianjie{
-	width: 1170px;
-	z-index: 1;
-}
-.jj-list{
-	width: 350px;
-	margin-right: 25px;
-	float: left;
-	margin-bottom: 20px;
-	z-index: 1;
-}
-.jj-list-tit{
-	font-size: 16px;
-	line-height: 25px;
-	color: #ffffff;
-	padding-left: 4px;
-	z-index: 1;
-}
-.jj-list-con{
-	overflow: hidden;
-	z-index: 1;
-}
-.jj-list-con li{
-	width: 110px;
-	margin: 3px 3px;
-}
-.link-3{
-	display: block;
-	background: rgba(0,0,0,.35);
-	color: #FFF;
-	font-size: 13px;
-	text-align: center;
-	line-height: 35px;
-	padding: 4px 0;
-	border-radius: 2px;
-	transition: all 0.2s;
-	z-index: 1;
-}
-.link-3:hover{
-	background: rgba(0,0,0,.45);
-	font-size: 15px;
-	font-weight: bold
-}
-
-.footer {  
-	color: #ffffff;
-    font-size: 12px;
-    text-align: center;
-    position: absolute;
-    bottom: 2%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.footer1{
-	display: none;
-}
-
-
-
-/*-----------------------------简洁版样式定义- 结束---------------------------------------------------*/
-
-
-div#baidu {
-    width: 80px;
-    /* height: 50px; */
-    height: 1.2rem;
-    /* background-color: #fff; */
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.baidu-2 form {
-    max-width: 520px;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    height: 1.2rem;
-    padding: 0;
-    z-index: 2;
-}
-
-.in5 {
-    width: calc(100% - 160px);
-    position: relative;
-    box-sizing: border-box;
-}
-
-div#qingkong {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    line-height: 14px;
-    color: #e6e6e6;
-}
-
-input#su-2 {
-    width: 79px;
-    box-sizing: border-box;
-}
-
-#kw-2 {
-    width: 100%;
-    border-left: none;
-    border-right: none;
-}
-
-@media screen and (max-width: 768px) {
-	ul.keylist {
-	    width: calc(80% - 0px) !important;
-	}
-	/*整个表单宽度*/
-	.baidu-2 form{
-		
-	}
-	div.in5 {
-	    width: calc(100% - 80px);
-	}
-	input#su-2{
-		position: absolute;
-    	right: 0;
+	if (sllTop >= arr1[0]) {
+		list_text[0].style.opacity = 1;
+		list_text[1].style.opacity = 0;
+		list_text[2].style.opacity = 0;
+		list_text[3].style.opacity = 0;
+		list_text[4].style.opacity = 0;
+	} if (sllTop >= arr1[1]) {
+		list_text[0].style.opacity = 0;
+		list_text[1].style.opacity = 1;
+		list_text[2].style.opacity = 0;
+		list_text[3].style.opacity = 0;
+		list_text[4].style.opacity = 0;
+	} if (sllTop >= arr1[2]) {
+		list_text[0].style.opacity = 0;
+		list_text[1].style.opacity = 0;
+		list_text[2].style.opacity = 1;
+		list_text[3].style.opacity = 0;
+		list_text[4].style.opacity = 0;
+	} if (sllTop >= arr1[3]) {
+		list_text[0].style.opacity = 0;
+		list_text[1].style.opacity = 0;
+		list_text[2].style.opacity = 0;
+		list_text[3].style.opacity = 1;
+		list_text[4].style.opacity = 0;
+	} if (sllTop >= arr1[4]) {
+		list_text[0].style.opacity = 0;
+		list_text[1].style.opacity = 0;
+		list_text[2].style.opacity = 0;
+		list_text[3].style.opacity = 0;
+		list_text[4].style.opacity = 1;
 	}
 }
-.keylist {
-    max-width: 360px;
-    width: calc(80% - 160px);
-    box-sizing: border-box;
-    z-index: 52;
-    margin: auto;
+
+$('#gotop').click(function () {
+	$('body,html').animate({
+		scrollTop: 0
+	},
+		800);//点击回到顶部按钮，缓懂回到顶部,数字越小越快
+})
+
+
+/*选择搜索引擎*/
+$('.Select-box ul').hover(function () {
+	$(this).css('height', 'auto')
+}, function () {
+	$(this).css('height', '40px')
+});
+$('.Select-box-2 ul').hover(function () {
+	$(this).css('height', 'auto')
+}, function () {
+	$(this).css('height', '47px')
+});
+
+$('.Select-box-2 li').click(function () {
+	var _tihs = $(this).attr('class');
+	var _html = $(this).html();
+	var _name = 'wd';
+	if (_tihs == 'this_s') {
+		return "";
+	}
+	if (_tihs == 'baidu_s') {
+		_tihs = 'https://www.baidu.com/s';
+		_name = 'wd';
+	} else if (_tihs == 'google_s') {
+		_tihs = 'https://www.google.com/search';
+		_name = 'q';
+	} else if (_tihs == 'bing_s') {
+		_tihs = 'https://www.bing.com/search';
+		_name = 'q';
+	} else if (_tihs == 'miji_s') {
+		_tihs = 'https://www.dogedoge.com/results';
+		_name = 'q';
+	} else {
+		_tihs = 'https://www.baidu.com/s';
+		_name = 'wd';
+	}
+	$('.baidu form').attr('action', _tihs);
+	$('.this_s').html(_html);
+	$('#kw-2').attr('name', _name);
+	$('.Select-box-2 ul').css('height', '48px');
+
+	setCookie("_search_", _html + "_nln_" + _tihs + "_nln_" + _name);
+});
+
+function _search_() {
+	var aCookie = document.cookie.split(";");
+
+	for (var i = 0; i < aCookie.length; i++) {
+		var aCrumb = aCookie[i].split("=");
+		if (aCrumb[0].toString().trim() == 'order_list') {
+			continue;
+		}
+		var name = unescape(aCrumb[0].trim());
+
+		if (aCrumb[0].toString().trim().indexOf("_search_") > -1) {
+
+			var link = getCookie(name).split("_nln_");
+
+			$('.baidu form').attr('action', link[1]);
+			$('.this_s').html(link[0]);
+			$('#kw-2').attr('name', link[2]);
+			$('.Select-box-2 ul').css('height', '48px');
+		}
+
+	}
+
+}
+_search_();
+
+//清空输入框内容
+$('.qingkong').click(function () {
+	cls();
+	$(this).css('display', 'none')
+});
+function cls() {
+	var sum = 0;
+	var t = document.getElementsByTagName("INPUT");
+	for (var i = 0; i < t.length; i++) {
+		if (t[i].type == 'text') {
+			++sum;
+			t[i].value = "";//清空 
+		}
+	}
 }
 
-ul.keylist {
-    outline: 0;
-    background: #fff;
-    color: #000000;
-    font-weight: bold;
-    position: relative;
+//清空输入框按钮的显示和隐藏
+function if_btn() {
+	var btn_obj = document.getElementById("kw") || document.getElementById("kw-2");
+	var cls_btn = document.getElementById("qingkong");
+	var btn_obj_val;
+	var times;
+	//当元素获得焦点时
+	if (btn_obj == '' || btn_obj == null) {
+		return false;  //如果没有找到这个元素，则将函数返回，不继续执行
+	}
+	btn_obj.onfocus = function () {
+		times = setInterval(function () {
+			btn_obj_val = btn_obj.value;
+			if (btn_obj_val != 0) {
+				cls_btn.style.display = "block";
+			} else {
+				cls_btn.style.display = "none";
+			}
+		}, 200);
+	}
+	//元素失去焦点时
+	btn_obj.onblur = function () {
+		clearInterval(times);
+	}
+
 }
-ul.keylist li {
-    float: none;
-    padding: 3px 8px;
-}
-.keylist li:hover{
-	background-color:#f1f1f1;
-}
-.keylist li.active{
-	background-color:#f1f1f1;
-}
-body, ul, li, h1, h2, h3, h4, h5, h6, p, form, dl, dt, dd {
-    z-index: 1;
+if_btn();
+
+$('.muban li').click(function () {
+	_index = $(this).index();
+	$(this).addClass('shaw').siblings().removeClass('shaw');
+	$('.muban-list ul').eq(_index).fadeIn(250).siblings().fadeOut(0);
+});
+$('.ruanjian-tab li').click(function () {
+	_index = $(this).index();
+	$(this).addClass('shaw').siblings().removeClass('shaw');
+	$('.ruanjian-list ul').eq(_index).fadeIn(250).siblings().fadeOut(0);
+});
+
+$('.list-link-4').hover(function () {
+	//获取当前元素的title内容，赋值给_thisTit
+	var _thisTit = $(this).attr('data-title');
+	//tips提示内容为_thisTit（即等于当前鼠标滑过元素的title内容），吸附对象为当前鼠标滑过对象
+	if (_thisTit != "") {	//判断条件，当前元素的data-title不等于空才执行下面的代码
+		layer.tips(_thisTit, this, {
+			tips: [1, '#1E9FFF'],
+			time: 99999,
+		});
+	}
+
+}, function () {
+	$('.layui-layer-tips').css('display', 'none')
+});
+
+var btn = $("#kw-2"), oUl = $(".keylist")[0];
+
+$("#qingkong").click(function () {
+	oUl.style.display = 'none';
+})
+
+// 搜索联想
+btn.keyup(function (e) {
+	if (e.keyCode == 13 || e.keyCode == 40 || e.keyCode == 38) {
+		e.preventDefault();
+		return;
+	}
+	var value = this.value;
+	if (value) {
+		var oScript = document.createElement('script');
+		oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value + '&cb=aa'
+		document.body.appendChild(oScript);
+		oScript.remove();
+	} else if (value == 0) {
+		oUl.style.display = 'none';
+	}
+
+})
+
+// 控制搜索时显示联想内容的数量
+function aa(data) {
+	//console.log(data);
+	oUl.style.display = 'block';
+	var list = data.s;
+	var str = '';
+
+	for (var i = 0; i < list.length; i++) {
+		// 最多显示8行
+		if (i < 8) {
+			str += '<li>' + list[i] + '</li>';
+		}
+
+	}
+	oUl.innerHTML = str;
 }
 
-.z_m_i {
-    padding: 10px 20px 0;
-    box-sizing: border-box;
-    position: relative;
-}
+$(".keylist").on('click', 'li', function () {
+	var value = $(this).text();
+	btn.val(value);
+	$('#su-2').click();
+	oUl.style.display = 'none';
+});
 
-.jj-list-con li{
-	position: relative;
-	height: 42px;
-}
+//利用键盘控制选择搜索联想词
+$(document).keydown(function (e) {
 
-.jj-list-con li:hover .i_r_remove{
-	display: block;
-}
+	if (e.keyCode == 13 && oUl.style.display == 'block') {
+		btn.val($(".keylist li.active").html().trim());
+		$('#su-2').click();
+		oUl.style.display = 'none';
+		//alert('你按下了Enter'); 
+	} else if (e && e.keyCode == 40 && oUl.style.display == 'block') { //下
+		//active
+		if ($(".keylist li.active").length > 0) {
+			var k1 = $(".keylist li.active")
+			k1.next().addClass("active");
+			k1.removeClass("active");
+		} else {
+			var k0 = $($(".keylist li")[0]);
+			k0.addClass("active");
+		}
+	} else if (e && e.keyCode == 38 && oUl.style.display == 'block') { // 上
+
+		var k1 = $(".keylist li.active")
+		k1.prev().addClass("active");
+		k1.removeClass("active");
+	} else {
+		//btn.keyup();
+	}
+
+});
+
+
+
+
 
